@@ -88,7 +88,7 @@
     const intFloatRegex = /^[+-]?\d+(\.\d+)?$/;
     // Check if itemPrice is either an integer or a float
     if (intFloatRegex.test(itemPrice.value)) {
-        const response = await fetch("http://localhost:3000/itemFormSubmission", {
+        const response = await fetch("https://ww-u0a8.onrender.com/itemFormSubmission", {
             method: "POST",
             body: formdata
         });

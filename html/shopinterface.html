@@ -78,7 +78,7 @@
             e.preventDefault();
             const id = data._id;
             try {
-                const resp = await fetch("http://localhost:3000/deleteItem", {
+                const resp = await fetch("https://ww-u0a8.onrender.com/deleteItem", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -102,7 +102,7 @@
     window.addEventListener("load", async () => {
         shopimageurl.src = localStorage.getItem("shopUrl")
         mapUrl.href = localStorage.getItem("mapCordinates")
-        const resp = await fetch("http://localhost:3000/shopinterfaceload", {
+        const resp = await fetch("https://ww-u0a8.onrender.com/shopinterfaceload", {
             body: JSON.stringify({ shopn }),
             headers: {
                 "Content-Type": "application/json"

@@ -98,7 +98,7 @@
         formdata.set("image", file)
         formdata.set("mapCordinates",map.value)
         if (shopName.value != '' && brochure.value != '' && file && map.value.startsWith(coordinates)) {
-            const respdata0 = await fetch("http://localhost:3000/shopformsubmission", {
+            const respdata0 = await fetch("https://ww-u0a8.onrender.com/shopformsubmission", {
                 method: "POST",
                 body: formdata,
             })

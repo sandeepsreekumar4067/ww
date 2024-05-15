@@ -92,7 +92,7 @@
                 console.log(id);
                 e.preventDefault()
                 try{
-                    const resp = await fetch("http://localhost:3000/deleteShop",{
+                    const resp = await fetch("https://ww-u0a8.onrender.com/deleteShop",{
                         method:"POST",
                         headers:{
                             "Content-Type":"application/json"
@@ -132,7 +132,7 @@
                 addbtn.style.display = "block";
             }
     
-            const respdata = await fetch("http://localhost:3000/shopfetch", {
+            const respdata = await fetch("https://ww-u0a8.onrender.com/shopfetch", {
                 method: "POST",
                 body: JSON.stringify({ locationNameData }),
                 headers: {

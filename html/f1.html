@@ -91,7 +91,7 @@
             formData.set("brochure", Brochure.value)
             formData.set("district", localStorage.getItem("district").toString())
             formData.set("image", file)
-            const respdata = await fetch("http://localhost:3000/formsubmission", {
+            const respdata = await fetch("https://ww-u0a8.onrender.com/formsubmission", {
                 method: "POST",
                 body: formData
             })
