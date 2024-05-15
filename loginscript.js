@@ -10,7 +10,7 @@ loginbutton.addEventListener("click", async (e) => {
     console.log("clicked");
     e.preventDefault();
     try {
-        const response = await fetch("http://localhost:3000/login", {
+        const response = await fetch("https://ww-u0a8.onrender.com/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
