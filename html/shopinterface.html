@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../html/style/shopinterface.css">
+</head>
+<body>
+    <div class="title-container">
+        <div class="title">WanderWise</div>
+        <div class="title-components">
+            <nav>
+                <a href="index.html">Home<span></span></a>
+                <a href="login.html" id="loginBtn">Login<span></span></a>
+                <a href="signin.html" id="signinBtn">Signin<span></span></a>
+                <a href="contact.html">Contact<span></span></a>
+                <a id="logout" href="#">Log Out<span></span></a>
+            </nav>
+            <div style="height: 5%;"></div>
+        </div>
+    </div>
+    <div class="body-container" id="body-container">
+        <span id="shopname">Shop Name</span>
+        <div class="shop-brochure">
+            <img src="https://keralakaumudi.com/web-news/en/2022/05/NMAN0332262/image/kk.1.1621137.jpg" id="shopUrl">
+            <p id="brochure">
+            </p>
+        </div>
+        <div>
+            <a  class="mapDiv" id="mapCordinates" href="http://google.com">click here to find my location</a>
+        </div>
+        <!-- <div class="shop-container">
+            <div class="shop-container-image" style="background-image: url('https://c8.alamy.com/comp/RFXJDD/grocery-shop-kochi-kerala-india-RFXJDD.jpg');"></div>
+            <p class="item" id="item">item name</p>
+        </div> -->
+        <div class="add-button" id="add-button" onclick="window.location.href='../html/shopownerform.html'">Add shop
+            Items
+        </div>
+    </div>
+</body>
+<script>
+    const specialCharacters = ['<', '>', '|', '{', '}', '?'];
+    function containsSpecialCharacters(inputString, specialCharacters) {
+        for (const char of specialCharacters) {
+            if (inputString.includes(char)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    const shopimageurl = document.getElementById("shopUrl")
+    const mapUrl = document.getElementById("mapCordinates")
+    const createShopList = (data) => {
+        console.log(data);
+        const shopContainer = document.createElement("div")
+        shopContainer.classList.add("shop-container")
+        const shopImage = document.createElement("div")
+        shopImage.classList.add("shop-container-image")
+        const item = document.createElement("p")
+        item.classList.add("item")
+        shopImage.style.backgroundImage = `url('${data.itemImage || 'https://www.lulumall.in/wp-content/uploads/2023/09/Front-facade_Lulu-Hyd-1.jpeg'}')`
+        item.innerHTML = data.itemName
+        const price = document.createElement("p")
+        price.classList.add("price")
+        price.innerHTML = "price :" + data.itemPrice + " Rs"
+        shopContainer.appendChild(shopImage)
+        shopContainer.appendChild(item)
+        shopContainer.appendChild(price)
+        const bodyc = document.getElementById("body-container")
+        const deleteButton = document.createElement("div")
+        deleteButton.classList.add("delete-button")
+        deleteButton.setAttribute("data-id", data._id);
+        deleteButton.innerHTML = "Delete item>>>"
+        shopContainer.appendChild(deleteButton)
+        bodyc.appendChild(shopContainer)
+        deleteButton.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const id = data._id;
+            try {
+                const resp = await fetch("http://localhost:3000/deleteItem", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        id: id
+                    })
+                });
+                const result = await resp.json();
+                console.log(result);
+                // Remove the deleted item from the DOM
+                shopContainer.remove();
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    }
+    const shopname = document.getElementById("shopname")
+    const shopn = localStorage.getItem("shopName")
+    shopname.innerHTML = shopn
+    window.addEventListener("load", async () => {
+        shopimageurl.src = localStorage.getItem("shopUrl")
+        mapUrl.href = localStorage.getItem("mapCordinates")
+        const resp = await fetch("http://localhost:3000/shopinterfaceload", {
+            body: JSON.stringify({ shopn }),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+        })
+        // console.log(await resp.json());
+        const data = await resp.json()
+        console.log(data);
+        const brochure = document.getElementById("brochure")
+        brochure.innerHTML = data.shopBrochure
+        data.item.map((itemdata, index) => {
+            createShopList(itemdata)
+        })
+        const logout = document.getElementById("logout")
+        if (localStorage.getItem("token")) {
+            logout.style.display = "block"
+        }
+        const login = document.getElementById("loginBtn")
+        if (localStorage.getItem("token")) {
+            login.style.display = "none"
+        }
+        const signin = document.getElementById("signinBtn")
+        if (localStorage.getItem("token")) {
+            signin.style.display = "none"
+        }
+        const deleteBtn = document.querySelectorAll(".delete-button")
+        const addbtn = document.getElementById("add-button");
+        if (containsSpecialCharacters(localStorage.getItem("token"), specialCharacters)) {
+            deleteBtn.forEach(btn => {
+                btn.style.display = "flex"
+            })
+        }
+        if (localStorage.getItem("token")) {
+            console.log(true);
+            addbtn.style.display = "block"
+        }
+        logout.addEventListener("click", () => {
+            const val = confirm("Are you sure ?");
+            if (val) {
+                logout.style.display = "none";
+                localStorage.removeItem("token");
+                window.location.reload();
+            }
+        });
+    })
+</script>
+
+</html>

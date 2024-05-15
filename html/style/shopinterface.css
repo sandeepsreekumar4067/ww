@@ -1,0 +1,238 @@
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.title-container {
+    background: linear-gradient(120deg, #8B93FF, #67C6E3, #40A2E3, #40A2D8);
+    height: 18vh;
+    padding-top: 2%;
+    border-bottom: 1px solid black;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #8B93FF,#C4E4FF,#FFF7FC);
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 40%;
+    font-size: 5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: font-size 0.3s ease-in-out;
+    /* Add a smooth transition effect */
+}
+
+.title:hover {
+    font-size: 6vh;
+    /* Adjust the desired size when hovered */
+}
+
+
+.title-components {
+
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 45%;
+    margin-right: 2%;
+}
+
+nav {
+    padding-top: 2%;
+    display: flex;
+}
+
+nav a {
+    position: relative;
+    font-size: 1.1em;
+    color: #333;
+    text-decoration: none;
+    padding: 6px 20px;
+    transition: .5s;
+}
+
+nav a:hover {
+    color: black;
+    font-size: 3.5vh;
+    transform: scale(1.01);
+}
+
+nav a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-bottom: 2px solid black;
+    border-radius: 15px;
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    transition: .5s;
+}
+
+nav a:hover span {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    background-color: #B9B4C7;
+
+
+}
+#logout{
+    display: none;
+}
+
+.mapDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #102C57;
+    width: 120%;
+    height: 20%;
+    padding: 5px;
+    transform: translateX(-190%);
+    margin: 20px;
+    transition: 0.4s;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+}
+.mapDiv:hover{
+    transform: translateX(-175%);
+    scale: 1.1;
+}
+
+.mapDiv:active{
+    transform: translateX(-225%);
+    scale: 0.8;
+}
+.body-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.body-container span{
+    font-size: 6vh;
+    padding: 5vh 5vh;
+}
+.shop-brochure{
+    display: flex;
+
+}
+.shop-brochure p{
+    text-align: center;
+    padding: 4vh 4vh;
+    font-size: large;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    line-height: 130%;
+}
+.shop-brochure img{
+    transform: scale(0.8);
+    border-radius: 4vh;
+    box-shadow: 0 0 2vh black;
+}
+.shop-items{
+    display: flex;
+
+}
+.shop-container {
+    transform: scale(0.9);
+    z-index: -1;
+    margin-top: 4vh;
+    margin-left: 4vh;
+    margin-right: 4vh;
+    margin-bottom: 4vh;
+    border-radius: 5vh;
+    box-shadow: 0 0 2vh black;
+    display: flex;
+    background: linear-gradient(120deg , #41C9E2,#F7EEDD);
+    height: 35vh;
+    align-items: center;
+    width: 98%;
+    z-index: 10;
+}
+
+.shop-container-image{
+    margin-left: 1%;
+    height: 90%;
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 1vh #333;
+    border-radius: 3vh;
+}
+
+.shop-container p{
+    flex: 1;
+    font-size: 5vh;
+    align-items: center;
+    margin-left: 5%;
+}
+
+.price{
+    flex: 1;
+}
+
+.delete-button{
+    margin: 1vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:25%;
+    height: 90%;
+    font-size: 2.5vh;
+    margin-right: 2vh;
+    transition: 0.3s;
+    border-radius: 20px;
+    display: none;
+    transition: 0.5s;
+}
+.delete-button:hover{
+    background-color: #97E7E1;
+    font-size: 3vh;
+}
+#shopUrl{
+    width: 55%;
+    height: 55%;
+}
+
+.shop-container button{
+    flex:1;
+    padding: 4vh 4vh;
+    margin-right: 4vh;
+    height: 50%;
+    background-color: transparent;
+    border: none;
+    font-size: 4ch;
+}
+.add-button {
+    transition: 0.3s;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #9d4edd;
+    color: white;
+    padding: 10px 20px;
+    z-index: 11;
+    border: none;
+    border-top-left-radius: 5vh;
+    border-bottom-left-radius: 5vh;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;
+    transform: scale(1.1);
+    display: none;
+}
+.add-button:hover{
+    border-radius: 0px;
+    scale: 1.1;
+    background-color: #E59BE9;
+}

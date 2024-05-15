@@ -1,0 +1,463 @@
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 40%;
+    font-size: 5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: font-size 0.3s ease-in-out;
+   
+}
+
+.title:hover {
+    font-size: 6vh;
+    
+}
+
+
+.title-components {
+    align-items: center;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 45%;
+    margin-right: 2%;
+}
+
+nav {
+    padding-top: 2%;
+    display: flex;
+}
+
+nav a {
+    position: relative;
+    font-size: 1.1em;
+    color: #333;
+    text-decoration: none;
+    padding: 6px 20px;
+    transition: .5s;
+}
+
+nav a:hover {
+    color: black;
+    font-size: 3.5vh;
+    transform: scale(1.01);
+}
+
+nav a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-bottom: 2px solid black;
+    border-radius: 15px;
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    transition: .5s;
+}
+
+nav a:hover span {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    background-color: #B9B4C7;
+
+
+}
+
+body {
+    background: linear-gradient(120deg, #BEADFA, #E5CFF7, #D2E0FB);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.title-container {
+    background: linear-gradient(120deg, #8B93FF, #67C6E3, #40A2E3, #40A2D8);
+    height: 18vh;
+    width: 100%;
+    padding-top: 2%;
+    border-bottom: 1px solid #333;
+}
+
+.container {
+    position: relative;
+    height: 70vh;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-20%);
+    border: none;
+}
+.circle1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25vh; /* Adjust size as needed */
+    height: 25vh; /* Adjust size as needed */
+    background-color: #FF2171; /* Circle color */
+    border-radius: 50%; /* Makes the div circular */
+     /* Ensure it's above other content */
+    transform: translateX(-40%) translateY(-50%);
+}
+.circle2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25vh; /* Adjust size as needed */
+    height: 25vh; /* Adjust size as needed */
+    background-color: #F29727; /* Circle color */
+    border-radius: 50%; /* Makes the div circular */
+     /* Ensure it's above other content */
+    transform: translateX(440%) translateY(160%);
+}
+h2 {
+    font-size: 8vh;
+    transform: translateY(-90%);
+    margin-top: 10vh;
+}
+
+form {
+    border: none;
+    height: 100%;
+    width: 100%;
+    /* background-color: #FFE6E6; */
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    /* Add blur effect for a glass-like effect */
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    /* Add box shadow for depth */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Optional: If you want to remove the legend border */
+legend {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.place {
+    font-size: 3vh;
+    text-align: center;
+    padding-left: 5vh;
+
+    /* Center the text horizontally */
+}
+
+.contact {
+    font-size: 4vh;
+    padding-top: 3vh;
+    text-align: center;
+    /* Center the text horizontally */
+}
+
+.tf {
+    width: 100%;
+}
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #9d4edd;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-top-left-radius: 5vh;
+    border-bottom-left-radius: 5vh;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;
+    z-index: 2;
+    display: none;
+}
+.add-button:hover {
+    background-color: #3c096c;
+    scale: 1.1;
+    border-top-left-radius:0;
+    border-bottom-left-radius: 0;
+}
+.locationName {
+    margin-left: 2vh;
+    border-radius: 10px;
+    height: 3.6vh;
+    /* You can adjust the height as needed */
+    width: 90%;
+    /* You can adjust the width as needed */
+    padding: 0.5vh;
+    /* Add padding to the input field */
+    font-size: 2vh;
+    /* Set the font size of the input field */
+    border: 1px solid #333;
+    /* Add a border to the input field */
+    outline: none;
+    /* Remove the default outline */
+    padding: 1vh;
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Small border with 20% opacity */
+}
+
+.shortdesc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 92%;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.shortdesc textarea {
+    margin-left: 3vh;
+    height: 70%;
+    width: 90%;
+    margin-bottom: 5vh;
+    border-radius: 20px;
+    resize: none;
+    padding: 2vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Transparent border */
+    border: 1px solid rgba(0, 0, 0,0.5); /* Small border with 20% opacity */
+}
+.shortdesc input {
+    
+    height: 10%;
+    width: 50%;
+    margin-bottom: 5vh;
+    border-radius: 20px;
+    resize: none;
+    padding: 2vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Transparent border */
+    border: 1px solid rgba(0, 0, 0,0.5); /* Small border with 20% opacity */
+}
+.desctitle {
+    font-size: 3.6vh;
+
+}
+
+button[type="submit"] {
+    border: 0.5px solid #CCD3CA;
+}
+
+.submit {
+    font-size: 3vh;
+    width: 20%;
+    height: 10%;
+    padding: 1vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    border-radius: 20px;
+    border: 1px solid #333;
+    background-color: #9195F6;
+    transition: 0.8s;
+}
+.submit:hover{
+    transform: scale(1.1);
+}
+.submit:active{
+    
+    transform: scale(0.8);
+}
+
+.circle1.animate-circle-1{
+    animation: circle1-animation 1s;
+}
+#addImageButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff; /* You can adjust the background color as needed */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 999; /* Ensure it's above other elements */
+    
+}
+.mapInput input{
+    width: 800px;
+}
+
+
+#addImageButton:hover {
+    background-color: #0056b3; /* Adjust hover color */
+}
+
+.active{
+  display: block;   
+}
+@keyframes circle1-animation{
+    0%{
+        transform: scale(0)  translateX(440%) translateY(160%);
+    }
+    
+   50%{
+    transform: scale(1.1)  translateX(-50%) translateY(-55%)
+   }
+    100%{
+        transform: scale(1) translateX(-40%) translateY(-50%);
+    }
+}
+.circle2.animate-circle-2{
+    animation: circle2-animation 1.5s;
+}
+@keyframes circle2-animation{
+    0%{
+        transform: scale(0) translateX(-40%) translateY(-50%);
+    }
+    50%{
+        transform: scale(1.1) translateX(445%) translateY(165%);
+    }
+    100%{
+        transform: scale(1) translateX(440%) translateY(160%);
+    }
+}
+.spotDetails.animate-spot-details{
+    animation: animate-spot-details 0.8s;
+}
+@keyframes animate-spot-details{
+    0%{
+        transform: scale(0) translateY(800%);
+    }
+    50%{
+        transform: scale(1.2) translateY(-80%);
+    }
+    100%{
+        transform: scale(1) translateY(-90%);
+        margin-top: 10vh;
+    }
+}
+.contact.animate-placetitle{
+    animation: animate-place-title 1s;
+}
+@keyframes animate-place-title{
+    0%{
+        transform: scale(0) translateY(800%);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.2) translateY(10%);
+    }
+    100%{
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+.place.animate-place{
+    animation: animate-place 1.2s;
+}
+@keyframes animate-place{
+    0%{
+        transform: scale(0) translateY(800%);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.2) translateY(10%);
+    }
+    100%{
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+.locationName.animate-location-input{
+    animation: animate-location-input 1.4s;
+}
+@keyframes animate-location-input{
+    0%{
+        transform: scale(0) translateY(800%);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.2) translateY(10%);
+    }
+    100%{
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+.desctitle.animate-desc-title{
+    animation: animate-desc-title 1.6s;
+}
+@keyframes animate-desc-title{
+    0%{
+        transform: scale(0) translateY(800%);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.2) translateY(10%);
+    }
+    100%{
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+.shortBrochure.animate-shortBrochure-input{
+    animation: animate-place-title 1.8s;
+}
+@keyframes animate-shortBrochure-input{
+    0%{
+        transform: scale(0) translateY(50%);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.1) translateY(10%);
+    }
+    100%{
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+.submit.animate-submit-button{
+    animation: animate-place-title 2s;
+}
+@keyframes animate-submit-button{
+    0%{
+        transform: scale(0) translateY(50%);
+        opacity: 0;
+    }
+    50%{
+        transform: scale(1.1) translateY(10%);
+    }
+    100%{
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,111 @@
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 40%;
+    font-size: 5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: font-size 0.3s ease-in-out;
+    /* Add a smooth transition effect */
+}
+
+.title:hover {
+    font-size: 6vh;
+    /* Adjust the desired size when hovered */
+}
+
+.title-components {
+
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 45%;
+    margin-right: 2%;
+}
+
+nav {
+    padding-top: 2%;
+}
+
+nav a {
+    position: relative;
+    font-size: 1.1em;
+    color: #333;
+    text-decoration: none;
+    padding: 6px 20px;
+    transition: .5s;
+}
+
+nav a:hover {
+    color: black;
+    font-size: 3.5vh;
+    transform: scale(1.01);
+}
+
+nav a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-bottom: 2px solid black;
+    border-radius: 15px;
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    transition: .5s;
+}
+
+nav a:hover span {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    background-color: #B9B4C7;
+
+
+}
+
+body {
+    background: linear-gradient(120deg, #BEADFA, #E5CFF7, #D2E0FB);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.title-container {
+    background: linear-gradient(120deg, #8B93FF, #67C6E3, #40A2E3, #40A2D8);
+    height: 18vh;
+    width: 100%;
+    padding-top: 2%;
+    border-bottom: 1px solid #333;
+}
+
+
+.form-container{
+    background-color: #FFD89C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60vh;
+    width: 65%;
+   
+}
+.spotDetails{
+    font-size: 4vh;
+}
+.touristForm{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}

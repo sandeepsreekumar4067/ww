@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/form.css">
+    <title>Tourist Location Form</title>
+</head>
+<body>
+    <div class="form-container" >
+        <h2>Tourist Location Details</h2>
+        <form id="touristForm"  >
+            <label for="locationName">Location Name:</label>
+            <input type="text" id="locationName" name="locationName" required>
+
+            <label for="shortBrochure">Short Brochure:</label>
+            <textarea id="shortBrochure" name="shortBrochure" rows="4" required></textarea>
+
+            <button type="submit" id="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+
+        const locationName=document.getElementById("locationName")
+        const Brochure = document.getElementById("shortBrochure")
+        const submit = document.getElementById("touristForm")
+        submit.addEventListener("submit",async (value)=>{
+            value.preventDefault()
+            const respdata = await fetch("http://localhost:3000/formsubmission",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(
+                    {
+                        locationName:locationName.value,
+                        brochure:Brochure.value
+                    }
+                )
+            })
+            console.log(respdata);
+            if(respdata.ok){
+                alert( await respdata.json())
+                window.location.href="./district.html"
+            }else{
+                const resp = await respdata.json()
+                alert(resp)
+            }
+        })
+    </script>
+</body>
+</html> -->

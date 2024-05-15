@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Amaranth:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300i" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="style/f1.css"> -->
+    <link rel="stylesheet" href="style/addtouristLocationForm.css">
+    <!-- <link rel="stylesheet" href="style/f2.css"> -->
+</head>
+<body>
+    <div class="title-container">
+        <div class="title">WanderWise </div>
+        <div class="title-components">
+            <nav>
+                <a href="index.html">Home<span></span></a>
+                <a href="login.html" id="loginBtn">Login<span></span></a>
+                <a href="signin.html" id="signinBtn">Signin<span></span></a>
+                <a href="contact.html">Contact<span></span></a>
+                <a id="logout" href="#">Log Out<span></span></a>
+            </nav>
+            <div style="height: 5%;"></div>
+        </div>
+    </div>
+    <h2 class="spotDetails">Spot Details</h2>
+    <div class="container">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <!-- <div class="border-up"></div> -->
+        <!-- <div class="border-down"></div> -->
+        <form id="touristForm" class="touristForm">
+            <fieldset style="height: 100%; width: 100%;">
+                <legend class="contact">Enter the place and Description</legend>
+                <div style="height: 2vh; width: 100%;"></div>
+                <div class="row">
+                    <div class="place">Place</div>
+                    <div class="tf">
+                        <input class="locationName" type="text" id="locationName" name="user_name"
+                            placeholder="Required" required><br />
+                    </div>
+                </div>
+                <div style="height: 1vh;"></div>
+                <div class="shortdesc">
+                    <div class="desctitle">Short Description</div>
+                    <div style="height: 1vh;"></div>
+                    <textarea class="shortBrochure" id="shortBrochure"
+                        placeholder="Enter a short description about this area"></textarea>
+                </div>
+            </fieldset>
+            <button type="submit" id="submit" class="submit">Submit</button>
+        </form>
+    </div>
+    <button id="addImageButton">Add image</button>
+    <input type="file" id="imageInput" style="display: none;" accept="image/*">
+</body>
+<script>
+    const locationName = document.getElementById("locationName")
+    const Brochure = document.getElementById("shortBrochure")
+    const submit = document.getElementById("touristForm")
+    const addimage = document.getElementById("addImageButton")
+    const fileinput = document.getElementById("file-input")
+    function containsSpecialCharacters(inputString, specialCharacters) {
+        for (const char of specialCharacters) {
+            if (inputString.includes(char)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    const specialCharacters = ['<', '>', '|', '{', '}', '?'];
+    // JavaScript to handle the click event of the "Add Image" button
+    const addImageButton = document.getElementById("addImageButton");
+    const imageInput = document.getElementById("imageInput");
+    addImageButton.addEventListener("click", () => {
+        imageInput.click(); // Trigger click event of the hidden file input
+    });
+    // JavaScript to handle file selection
+    var file;
+    imageInput.addEventListener("change", async () => {
+        file = imageInput.files[0]; // Get the selected file
+    });
+    submit.addEventListener("click", async (e) => {
+        e.preventDefault()
+        if ((locationName.value !== "" && Brochure.value !== "" && file)) {
+            const formData = new FormData();
+            formData.set("locationName", locationName.value)
+            formData.set("brochure", Brochure.value)
+            formData.set("district", localStorage.getItem("district").toString())
+            formData.set("image", file)
+            const respdata = await fetch("http://localhost:3000/formsubmission", {
+                method: "POST",
+                body: formData
+            })
+            console.log(respdata);
+            if (respdata.ok) {
+                alert(await respdata.json())
+            } else {
+                const resp = await respdata.json()
+                alert(resp)
+            }
+        }
+    })
+    window.onload = () => {
+        let circle1 = document.querySelectorAll(".circle1")
+        circle1.forEach(circle => {
+            circle.classList.add("animate-circle-1")
+        })
+        let circle2 = document.querySelectorAll(".circle2")
+        circle2.forEach(circ => {
+            circ.classList.add("animate-circle-2")
+        })
+        let spotDetails = document.querySelectorAll(".spotDetails")
+        let placetitle = document.querySelectorAll(".contact")
+        let place = document.querySelectorAll(".place")
+        let locationInput = document.querySelectorAll(".locationName")
+        let shortdesc = document.querySelectorAll(".desctitle")
+        let shortBrochureInpt = document.querySelectorAll(".shortBrochure")
+        let submit = document.querySelectorAll(".submit")
+        place.forEach(plc => {
+            plc.classList.add("animate-place")
+        })
+        locationInput.forEach(lctn => {
+            lctn.classList.add("animate-location-input")
+        })
+        shortdesc.forEach(desctitle => {
+            desctitle.classList.add("animate-desc-title")
+        })
+        shortBrochureInpt.forEach(shortbroch => {
+            shortbroch.classList.add("animate-shortBrochure-input")
+        })
+        submit.forEach(submitBtn => {
+            submitBtn.classList.add("animate-submit-button")
+        })
+        placetitle.forEach(plctitle => {
+            plctitle.classList.add("animate-placetitle")
+        })
+        spotDetails.forEach(spot => {
+            spot.classList.add("animate-spot-details")
+        })
+        const logout = document.getElementById("logout")
+        const token = localStorage.getItem('token');
+        if (localStorage.getItem("token")) {
+            logout.style.display = "block"
+        }
+        const login = document.getElementById("loginBtn")
+        if (localStorage.getItem("token")) {
+            login.style.display = "none"
+        }
+        const signin = document.getElementById("signinBtn")
+        if (localStorage.getItem("token")) {
+            signin.style.display = "none"
+        }
+    }
+    logout.addEventListener("click", () => {
+        const val = confirm("Are you sure ?")
+        if (val) {
+            logout.style.display = "none"
+            localStorage.removeItem("token")
+            window.location.reload()
+        }
+    })
+</script>
+</html>

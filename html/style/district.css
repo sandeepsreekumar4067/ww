@@ -1,0 +1,236 @@
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.title-container {
+    background: linear-gradient(120deg, #8B93FF, #67C6E3, #40A2E3, #40A2D8);
+    height: 18vh;
+    padding-top: 2%;
+    border-bottom: 1px solid black;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #8B93FF,#C4E4FF,#FFF7FC);
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    height: 40%;
+    font-size: 5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    transition:  0.3s ease-in-out;
+    /* Add a smooth transition effect */
+}
+
+.title:hover {
+    font-size: 6vh;
+    /* Adjust the desired size when hovered */
+}
+
+.title-components {
+
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 45%;
+    margin-right: 2%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+nav {
+    padding-top: 2%;
+    display: flex;
+}
+
+nav a {
+    position: relative;
+    font-size: 1.1em;
+    color: #333;
+    text-decoration: none;
+    padding: 6px 20px;
+    transition: .5s;
+}
+
+nav a:hover {
+    color: black;
+    font-size: 3.5vh;
+    transform: scale(1.01);
+}
+
+#logout{
+    display: none;
+}
+
+nav a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-bottom: 2px solid black;
+    border-radius: 15px;
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    transition: .5s;
+}
+
+nav a:hover span {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    background-color: #B9B4C7;
+
+
+}
+
+.body-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.district-name-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 10vh;
+    font-size: 5vh;
+    justify-content: center;
+    transition: 0.3s;
+}
+.district-name-container:hover{
+    transition: 0.3s ease-in-out;
+    font-size: 6.5vh;
+}
+.tourist-location-container{
+    position: relative;
+    height: 35vh;
+    display: flex;
+    width: 90%;
+    background: linear-gradient(120deg , #41C9E2,#F7EEDD);
+    /* margin-left: 5%; */
+    border-radius: 3vh;
+    box-shadow: 0 0 2vh rgba(0, 0, 0, 0.5);
+    margin-bottom: 5%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tourist-container-image{
+    margin-left: 1%;
+    height: 90%;
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 1vh #333;
+    border-radius: 3vh;
+}
+.tourist-container-place{
+    text-align: center;
+    flex:1;
+    height: 90%;
+    flex: 1;
+    /* background-color: #ada7ff; */
+    margin-left: 1%;
+    display: flex;
+    justify-content: center;
+    font-size: 3vh;
+}
+.tourist-container-place span{
+    margin-top: 10%;
+}
+.tourist-container-brochure{
+    padding:  2vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 2.6vh;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    flex:2;
+    height: 90%;
+    overflow: auto;
+    flex: 1.5;
+    /* background-color: violet; */
+    margin-left: 1%;
+    margin-right: 1%;
+    overflow-y: hidden;
+}
+.spacer{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1vh;
+    
+}
+
+.delete-button{
+    border-radius: 4vh;
+    width: 100%;
+    padding: 6vh 0vh;
+    /* margin-bottom: 2vh; */
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+    transition: 0.3s ease-in-out;
+    display: none;
+}
+
+
+.more-info{
+    border-radius: 4vh;
+    width: 100%;
+    padding: 6vh 0vh;
+    background-color: transparent;
+    border: none;
+    font-size: 3vh;
+    transition: 0.3s ease-in-out;
+}
+
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #9d4edd;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-top-left-radius: 5vh;
+    border-bottom-left-radius: 5vh;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;
+    z-index: 2;
+    display: none;
+}
+
+
+.delete-button:hover,
+.more-info:hover{
+    background-color:#FFA447;
+    font-size: 4vh;
+}
+
+.add-button:hover {
+    background-color: #3c096c;
+    scale: 1.1;
+    border-top-left-radius:0;
+    border-bottom-left-radius: 0;
+}

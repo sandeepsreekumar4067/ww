@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../html/style/tlocation.css">
+
+</head>
+<body>
+    <!-- Title Components-->
+    <div class="title-container">
+        <div class="title">WanderWise</div>
+        <div class="title-components">
+            <nav>
+                <a href="index.html">Home<span></span></a>
+                <a href="login.html" id="loginBtn">Login<span></span></a>
+                <a href="signin.html" id="signinBtn">Signin<span></span></a>
+                <a href="contact.html">Contact<span></span></a>
+                <a id="logout" href="#">Log Out<span></span></a>
+                <a id="logout" href="#">Log Out<span></span></a>
+            </nav>
+            <div style="height: 5%;"></div>
+        </div>
+    </div>
+    <div class="body-container " id="body-container">
+        <div class="location-name-container" id="location-name-container">Location</div>
+        <div style="margin-top: 2vh;"></div>
+        <!-- <div class="tourist-location-container">
+                <div class="tourist-container-image" style="background-image: url('https://static.toiimg.com/thumb/78101742/Kerala-1.jpg?width=1200&height=900');"></div>
+                <div class="tourist-container-place"><span>Tourist Location</span></div>
+                <div class="tourist-container-brochure"> <span>
+                    Discover breathtaking landscapes, cultural delights, luxurious retreats, family-friendly escapes, romantic getaways,
+                    eco-friendly travel, historical marvels, adrenaline paradise, picturesque seascapes, hidden gems, wildlife safari, art,
+                    wellness, mountainside serenity, festivals, gastronomic journeys, photography expeditions, winter escapes, endless adventure awaits.
+                </span></div>
+            </div> -->
+        <div id="location-brochure">
+            <!-- <div class="image" id="" style="background-image: url('https://imageio.forbes.com/blogs-images/jimdobson/files/2016/05/Sree_Padmanabhaswamy_Temple.jpg?height=459&width=711&fit=bounds');"></div>     -->
+            Brochure
+        </div>
+        <div id="shops">
+        </div>
+        <!-- <div class="sample">
+            <img src="https://c8.alamy.com/comp/RFXJDD/grocery-shop-kochi-kerala-india-RFXJDD.jpg" alt="">
+            <span>
+                Shop name
+            </span>
+
+        </div> -->
+        <div class="add-button" id="add-button" onclick="window.location.href='../html/shopform.html'">Add Shop</div>
+    </div>
+    <script>
+        const bodyContainer = document.getElementById("body-container");
+        const locationName = document.getElementById('location-name-container');
+        const brochure = document.getElementById("location-brochure");
+        const shopContainer = document.getElementById("shops");
+        locationName.innerHTML = localStorage.getItem("locationName");
+        const locationNameData = localStorage.getItem("locationName");
+        const specialCharacters = ['<', '>', '|', '{', '}', '?'];
+        const createLocationElement = (locationData) => {
+            const locationContainer = document.createElement("div");
+            locationContainer.classList.add("tourist-location-container");
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("tourist-container-image");
+            imageContainer.style.backgroundImage = `url('${locationData.shopImage || "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630"}')`;
+            locationContainer.appendChild(imageContainer);
+            const placeContainer = document.createElement("div");
+            placeContainer.classList.add("tourist-container-place");
+            placeContainer.innerHTML = `<span>${locationData.shopName}</span>`;
+            locationContainer.appendChild(placeContainer);
+            const brochureContainer = document.createElement("div");
+            brochureContainer.classList.add("tourist-container-brochure");
+            brochureContainer.innerHTML = `<span>${locationData.shopBrochure}</span>`;
+            locationContainer.appendChild(brochureContainer);
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete>>";
+            deleteBtn.classList.add("delete-button");
+            const spacer = document.createElement('div');
+            spacer.classList.add("spacer");
+            const moreinfo = document.createElement("button");
+            moreinfo.innerText = "more info>>";
+            moreinfo.classList.add("more-info");
+            moreinfo.addEventListener("click",()=>{
+                localStorage.setItem("shopUrl",locationData.shopImage)
+            })
+            spacer.appendChild(deleteBtn);
+            spacer.appendChild(moreinfo);
+            locationContainer.appendChild(spacer);
+            deleteBtn.addEventListener("click",async(e)=>{
+                const id = locationData._id
+                console.log(id);
+                e.preventDefault()
+                try{
+                    const resp = await fetch("http://localhost:3000/deleteShop",{
+                        method:"POST",
+                        headers:{
+                            "Content-Type":"application/json"
+                        },
+                        body:JSON.stringify({
+                            id:id
+                        })
+                    })
+                    const result = await resp.json();
+                    locationContainer.remove();
+                }
+                catch(e){
+                    alert(e)
+                }
+            })
+            return locationContainer;
+        };
+        const containsSpecialCharacters = (inputString, specialCharacters) => {
+            for (const char of specialCharacters) {
+                if (inputString.includes(char)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        const handleLogout = () => {
+            const val = confirm("Are you sure ?");
+            if (val) {
+                localStorage.removeItem("token");
+                window.location.reload();
+            }
+        };
+        window.addEventListener("load", async () => {
+            const addbtn = document.getElementById("add-button");
+            const token = localStorage.getItem("token");
+            if (token) {
+                addbtn.style.display = "block";
+            }
+    
+            const respdata = await fetch("http://localhost:3000/shopfetch", {
+                method: "POST",
+                body: JSON.stringify({ locationNameData }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const brch = await respdata.json();
+            console.log( "inside brch",brch.shops);
+            brochure.innerHTML = brch.brochure;
+            console.log(brch.shops);
+            brch.shops.map((data, index) => {
+                const locationElement = createLocationElement(data);
+                bodyContainer.appendChild(locationElement);
+                const deletebtn = document.getElementsByClassName("delete-button");
+                const moreinfo = document.getElementsByClassName("more-info");
+                if (token && containsSpecialCharacters(token, specialCharacters)) {
+                    deletebtn[index].style.display = "block";
+                }
+                moreinfo[index].addEventListener("click", () => {
+                    window.localStorage.setItem("mapCordinates",data.shopLocation)
+                    window.localStorage.setItem("shopName", data.shopName);
+                    window.location.href = "../html/shopinterface.html";
+                });
+            });
+            const logout = document.getElementById("logout");
+            const login = document.getElementById("loginBtn");
+            const signin = document.getElementById("signinBtn");
+            if (token) {
+                logout.style.display = "block";
+                login.style.display = "none";
+                signin.style.display = "none";
+            }
+            const logoutBtn = document.getElementById("logout");
+            if (localStorage.getItem("token")) {
+                logoutBtn.style.display = "block";
+            }
+            logoutBtn.addEventListener("click", handleLogout);
+        });
+    
+    </script>
+    
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/login.css">
+    <title>Document</title>
+    <script src="../loginscript.js" defer></script>
+</head>
+<body>
+    <div class="title-container">
+        <div class="title">WanderWise </div>
+        <div class="title-components">
+            <nav>
+                <a href="index.html">Home<span></span></a>
+                <a href="login.html" id="loginBtn">Login<span></span></a>
+                <a href="signin.html" id="signinBtn">Signin<span></span></a>
+                <a href="contact.html">Contact<span></span></a>
+                <a id="logout" href="#">Log Out<span></span></a>
+            </nav>
+            <div style="height: 5%;"></div>
+        </div>
+    </div>
+    <div class="background">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+    </div>
+    <form id="loginform" class="loginform">
+        <h3 class="login">Login Here</h3>
+        <label class="username1" for="username" class="usr">Username</label>
+        <input type="text" placeholder="Email or Phone" id="username" class="username">
+        <label for="password" class="pswd">Password</label>
+        <input type="password" placeholder="Password" id="password" class="password">
+        <button class="Loginbtn" id="loginbutton">Log In</button>
+    </form>
+</body>
+<script>
+    window.onload = () => {
+        const logout = document.getElementById("logout")
+        let section = document.querySelectorAll(".background")
+        section.forEach(sec => {
+            sec.classList.add("animate-contents")
+        })
+        let Login = document.querySelectorAll(".loginform")
+        Login.forEach(log => {
+            log.classList.add("animate-login")
+        })
+        if(localStorage.getItem("token")){
+        logout.style.display="block"
+       }
+       const login = document.getElementById("loginBtn")
+       if(localStorage.getItem("token")){
+        login.style.display="none"
+       }
+       const signin = document.getElementById("signinBtn")
+       if(localStorage.getItem("token")){
+        signin.style.display="none"
+       }
+    }
+    logout.addEventListener("click",()=>{
+        const val =confirm("Are you sure ?")
+        if(val){
+            logout.style.display="none"
+            localStorage.removeItem("token")
+            window.location.reload()
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style/district.css">
+    <!-- <script src="../district.js"></script> -->
+</head>
+<body>
+    <!-- Title Components-->
+    <div class="title-container">
+        <div class="title">WanderWise</div>
+        <div class="title-components">
+            <nav>
+                <a href="index.html">Home<span></span></a>
+                <a href="login.html" id="loginBtn">Login<span></span></a>
+                <a href="signin.html" id="signinBtn">Signin<span></span></a>
+                <a href="contact.html">Contact<span></span></a>
+                <a id="logout" href="#">Log Out<span></span></a>
+            </nav>
+            <div style="height: 5%;"></div>
+        </div>
+    </div>
+    <!-- bodyComponents -->
+    <div class="body-container " id="body-container">
+        <div class="district-name-container" id="district-name-container">District</div>
+        <div style="margin-top: 2vh;"></div>
+        <!-- the structure of the container  -->
+        <!-- <div class="tourist-location-container">
+                <div class="tourist-container-image" style="background-image: url('https://static.toiimg.com/thumb/78101742/Kerala-1.jpg?width=1200&height=900');"></div>
+                <div class="tourist-container-place"><span>Tourist Location</span></div>
+                <div class="tourist-container-brochure"> <span>
+                    Discover breathtaking landscapes, cultural delights, luxurious retreats, family-friendly escapes, romantic getaways,
+                    eco-friendly travel, historical marvels, adrenaline paradise, picturesque seascapes, hidden gems, wildlife safari, art,
+                    wellness, mountainside serenity, festivals, gastronomic journeys, photography expeditions, winter escapes, endless adventure awaits.
+                </span></div>
+            </div> -->
+        <div class="add-button" id="add-button" onclick="window.location.href='../html/f1.html'">Add Tourist Location
+        </div>
+    </div>
+    <script>
+        let addbtn = document.getElementById("add-button");
+        let localstorage = localStorage.getItem("district");
+        let districtName = document.getElementById("district-name-container");
+        let bodyContainer = document.getElementById("body-container");
+        let deletebtn = document.getElementsByClassName("delete-button");
+        var moreinfo = document.getElementsByClassName("more-info");
+        districtName.innerHTML = localstorage;
+        function hasNumber(inputString) {
+            const regex = /\d/;
+            return regex.test(inputString);
+        }
+        function containsSpecialCharacters(inputString, specialCharacters) {
+            for (const char of specialCharacters) {
+                if (inputString.includes(char)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        const specialCharacters = ['<', '>', '|', '{', '}', '?'];
+        const createLocationElement = (locationData) => {
+            const locationContainer = document.createElement("div");
+            locationContainer.classList.add("tourist-location-container");
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("tourist-container-image");
+            imageContainer.style.backgroundImage = `url('${locationData?.Image || "https://www.ekeralatourism.net/wp-content/uploads/2018/03/Alleppey.jpg"}')`;
+            locationContainer.appendChild(imageContainer);
+            const placeContainer = document.createElement("div");
+            placeContainer.classList.add("tourist-container-place");
+            placeContainer.innerHTML = `<span>${locationData.locationName}</span>`;
+            locationContainer.appendChild(placeContainer);
+            const brochureContainer = document.createElement("div");
+            brochureContainer.classList.add("tourist-container-brochure");
+            brochureContainer.innerHTML = `<span>${locationData.brochure}</span>`;
+            locationContainer.appendChild(brochureContainer);
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "Delete>>";
+            deleteBtn.classList.add("delete-button");
+            const spacer = document.createElement('div');
+            spacer.classList.add("spacer");
+            const moreinfoBtn = document.createElement("button");
+            moreinfoBtn.innerText = "more info>>";
+            moreinfoBtn.classList.add("more-info");
+            spacer.appendChild(deleteBtn);
+            spacer.appendChild(moreinfoBtn);
+            locationContainer.appendChild(spacer);
+            return locationContainer;
+        };
+        let locationElement;
+        const getlocation = async () => {
+            const res = await fetch("http://localhost:3000/getlocation", {
+                method: "POST",
+                body: JSON.stringify({ place: localStorage.getItem("district") }),
+                headers: { "Content-Type": "application/json" }
+            });
+            const dbLocations = await res.json();
+            dbLocations.forEach((data, index) => {
+                locationElement = createLocationElement(data);
+                bodyContainer.appendChild(locationElement);
+                const token = localStorage.getItem("token");
+                if (token && containsSpecialCharacters(token, specialCharacters)) {
+                    deletebtn[index].style.display = "block";
+                }
+                deletebtn[index].addEventListener("click", () => {
+                    const id = data._id
+                    console.log(data._id);
+                    fetch("http://localhost:3000/deletelocation" , {
+                        method : "POST",
+                        body : JSON.stringify({id}),
+                        headers : {"Content-Type" : "application/json" }
+                    }).then(()=>{ 
+                        window.location.reload()
+                    })
+                });
+                moreinfo[index].addEventListener("click", () => {
+                    window.location.href = "../html/tlocation.html";
+                    window.localStorage.setItem("locationName", dbLocations[index].locationName);
+                });
+            });
+        };
+        getlocation();
+        window.onload = () => {
+            const logout = document.getElementById("logout")
+            const token = localStorage.getItem('token');
+            if (token && containsSpecialCharacters(token, specialCharacters)) {
+                addbtn.style.display = "block";
+            }
+            if (localStorage.getItem("token")) {
+                logout.style.display = "block"
+            }
+            const login = document.getElementById("loginBtn")
+            if (localStorage.getItem("token")) {
+                login.style.display = "none"
+            }
+            const signin = document.getElementById("signinBtn")
+            if (localStorage.getItem("token")) {
+                signin.style.display = "none"
+            }
+        };
+        logout.addEventListener("click", () => {
+            const val = confirm("Are you sure ?")
+            if (val) {
+                logout.style.display = "none"
+                localStorage.removeItem("token")
+                window.location.reload()
+            }
+        })
+    </script>
+</body>
+
+
+
+</html>
