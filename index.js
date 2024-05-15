@@ -10,18 +10,19 @@ const app = express();
 const cors = require("cors")
 const bcrypt = require("bcrypt")
 const upload = multer({ dest: "./uploads" })
+require('dotenv').config()
 cloudinary.config({
-    cloud_name: 'dzvc7qn3f',
-    api_key: '133587965695424',
-    api_secret: 'McKQtuNI6YsRz9vhQbA6G1FaCrQ'
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 app.use(upload.any())
-const key = 'abcdefg'
-const url = 'mongodb+srv://sandeepsreekumar4067:sandeepsourav2003@cluster0.rp7igqg.mongodb.net/?retryWrites=true&w=majority';
+const key = process.env.JWT_KEY
+const url = process.env.MONGO_URL
 const admin = {
     admin1: "admin1",
     admin2: "admin2",
